@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Pagination, Navigation } from "swiper/modules";
+import {Autoplay, Pagination, Navigation } from "swiper/modules";
 function Banner() {
   return (
     <div>
@@ -19,11 +19,15 @@ function Banner() {
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        modules={[Autoplay,Pagination, Navigation]}
         className="mySwiper h-[90vh]"
       >
         <SwiperSlide><img className="w-full h-full object-cover" src="https://i.ibb.co/x3FJMqb/emma-Hotel3.jpg" alt="" /></SwiperSlide>

@@ -3,6 +3,7 @@ import Home from "./Page/Home/Home";
 import Layout from "./Layout/Layout";
 import Login from "./Page/Authentication/Login";
 import Register from "./Page/Authentication/Register";
+import Apartment from "./Page/Apartment/Apartment";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/apartment",
+        element: <Apartment></Apartment>,
       },
     ],
   },

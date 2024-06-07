@@ -4,11 +4,19 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./Router";
 import AuthProvider from "./Provider/Authprovidre";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
+      <Toaster
+        toastOptions={{
+          style: {
+            zIndex: 9999, // Custom z-index value
+          },
+        }}
+      />
     </AuthProvider>
   </React.StrictMode>
 );

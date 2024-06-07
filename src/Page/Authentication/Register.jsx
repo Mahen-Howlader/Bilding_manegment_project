@@ -1,16 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { imageUpload } from "../../Api/ImageUpload";
+import { useState } from "react";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Register = () => {
   const navigate = useNavigate();
-  const {
-    createUser,
-    signInWithGoogle,
-    updateUserProfile,
-    loading,
-    setLoading,
-  } = useAuth();
+  const { createUser, signInWithGoogle, updateUserProfile, loading, setLoading } = useAuth();
+  const [imageFile, setImageFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,41 +17,43 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const image = form.image.files[0];
+    const image = form.image.files[0]
 
-    console.log(name, email, password, image);
+    try {
+      setLoading(true);
+      // 1. Upload image and get image URL
+      const image_url = await imageUpload(image);
+      console.log(image_url);
+      // 2. User Registration
+      const result = await createUser(email, password);
+      console.log(result);
+
+      // 3. Save username and photo in firebase
+      await updateUserProfile(name, image_url);
+      navigate('/');
+      toast.success('Signup Successful');
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
-  //   try {
-  //     setLoading(true)
-  //     // 1. Upload image and get image url
-  //     const image_url = await imageUpload(image)
-  //     console.log(image_url)
-  //     //2. User Registration
-  //     const result = await createUser(email, password)
-  //     console.log(result)
 
-  //     // 3. Save username and photo in firebase
-  //     await updateUserProfile(name, image_url)
-  //     navigate('/')
-  //     toast.success('Signup Successful')
-  //   } catch (err) {
-  //     console.log(err)
-  //     toast.error(err.message)
-  //   }
-  // }
+
+
 
   // handle google signin
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await signInWithGoogle()
-
-  //     navigate('/')
-  //     toast.success('Signup Successful')
-  //   } catch (err) {
-  //     console.log(err)
-  //     toast.error(err.message)
-  //   }
-  // }
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle()
+      navigate('/')
+      toast.success('Signup Successful')
+    } catch (err) {
+      console.log(err)
+      toast.error(err.message)
+    }
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -62,7 +63,7 @@ const Register = () => {
           <p className="text-sm text-gray-400">WELCOME TO HOTEL EMMA</p>
         </div>
         <form
-        onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -130,7 +131,11 @@ const Register = () => {
               type="submit"
               className="bg-blue-700 w-full rounded-md py-3 text-white"
             >
-              Continue
+             {loading ? (
+                <TbFidgetSpinner className='animate-spin m-auto' />
+              ) : (
+                'Continue'
+              )}
             </button>
           </div>
         </form>
@@ -141,16 +146,15 @@ const Register = () => {
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+        <div onClick={handleGoogleSignIn} className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
           <FcGoogle size={32} />
-
           <p>Continue with Google</p>
         </div>
         <p className="px-6 text-sm text-center text-gray-400">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="hover:underline hover:text-rose-500 text-gray-600"
+            className="hover:underline hover:text-blue-700 text-gray-600"
           >
             Login
           </Link>
