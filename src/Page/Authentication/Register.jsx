@@ -9,7 +9,6 @@ import { TbFidgetSpinner } from "react-icons/tb";
 const Register = () => {
   const navigate = useNavigate();
   const { createUser, signInWithGoogle, updateUserProfile, loading, setLoading } = useAuth();
-  const [imageFile, setImageFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +38,6 @@ const Register = () => {
       setLoading(false);
     }
   };
-
 
 
 

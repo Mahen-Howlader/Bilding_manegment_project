@@ -33,7 +33,6 @@ function Banner() {
         <SwiperSlide><img className="w-full h-full object-cover" src="https://i.ibb.co/x3FJMqb/emma-Hotel3.jpg" alt="" /></SwiperSlide>
         <SwiperSlide><img className="w-full h-full object-cover" src="https://i.ibb.co/b6JY9Zn/emma-Hotel2.jpg" alt="" /></SwiperSlide>
         <SwiperSlide><img className="w-full h-full object-cover" src="https://i.ibb.co/bQF55bg/emma-Hotel4.jpg" alt="" /></SwiperSlide>
-
       </Swiper>
     </div>
   );

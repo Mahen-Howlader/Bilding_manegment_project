@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 function Apartment() {
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
-  console.log(user);
 
   const { data: allaprtment = [], isLoading } = useQuery({
     queryKey: ["apartment"],
@@ -19,7 +18,7 @@ function Apartment() {
       return data;
     },
   });
-  console.log(allaprtment);
+  // console.log(allaprtment);
 
   // A. User name(who want to make an agreement/logged in user)
   // B. User email(who want to make an agreement/logged in user)
