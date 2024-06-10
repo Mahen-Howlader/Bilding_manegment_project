@@ -1,20 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
+import useAxiosCommon, { axiosCommon } from "../../../Hooks/useAxiosCommon";
 import axios from "axios";
-import useAxiosCommon from "../../../Hooks/useAxiosCommon";
+import Spinner from "../../../Component/Spinner";
 
 const Profile = () => {
   const { user } = useAuth();
-  const [role, isLoading] = useRole();
-  const { data: roomData = "", isLoading } = useQuery({
-    queryKey: ["roomdata"],
+  const [role, isRoleLoading] = useRole();
+  //   console.log(useAxiosCommon);
+
+  const { data: agrement, isLoading } = useQuery({
+    queryKey: ["agrement"],
     queryFn: async () => {
-      const { data } = await useAxiosCommon.get(`/agreement/${user?.email}`);
+      const { data } = await axios.get(
+        `http://localhost:8000/agreement/${user?.email}`
+      );
+      // console.log(data?.role)
       return data;
     },
   });
-console.log(roomData)
+  if (isLoading || isRoleLoading) return <Spinner></Spinner>;
+  console.log(agrement);
   return (
     <>
       <div className="h-screen bg-gray-200 dark:bg-gray-800 flex flex-wrap items-center justify-center">
@@ -51,24 +58,39 @@ console.log(roomData)
             </a>
           </div>
           <hr className="mt-6" />
-          <div className="flex bg-gray-50">
+          <div className=" bg-gray-50">
             <div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
               <p>
-                <span className="font-semibold">2.5k </span> Followers
+                <span className="font-semibold">Accept date : </span>
               </p>
             </div>
-            <div className="border"></div>
-            <div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-              <p>
-                <span className="font-semibold">2.0k </span> Following
+            <div className="text-center  p-4 hover:bg-gray-100 cursor-pointer">
+              <p className="grid grid-cols-2 justify-items-start gap-3 ">
+                <span className="font-semibold">
+                  Floor : {agrement?.floorNo}{" "}
+                </span>
+                <span className="font-semibold">
+                  Block : {agrement?.block_name}{" "}
+                </span>
+                <span className="font-semibold">
+                  Room no: {agrement?.apartment_no}{" "}
+                </span>
+                <span
+                  className={`font-semibold ${
+                    agrement?.status === `Pending`
+                      ? "text-red-500"
+                      : "text-green-600"
+                  }`}
+                >
+                  {" "}
+                  Status : {agrement?.status}{" "}
+                </span>
               </p>
             </div>
           </div>
         </div>
       </div>
-      {/* {
-        role === "member" && 
-    } */}
+      {/* {role === "member" && "dfdf"} */}
     </>
   );
 };

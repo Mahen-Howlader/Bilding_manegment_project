@@ -7,9 +7,11 @@ import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { VscRepoFetch } from "react-icons/vsc";
 import toast from "react-hot-toast";
+import moment from "moment";
 function Apartment() {
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
+  const dateTime = moment().format("L");
 
   const { data: allaprtment = [], isLoading } = useQuery({
     queryKey: ["apartment"],
@@ -27,15 +29,18 @@ function Apartment() {
   // E. Apartment no
   // F. Rent
   // G. Status(pending by default)
+
   const { mutateAsync } = useMutation({
     mutationFn: async (agrementData) => {
       const { data } = await axiosCommon.post(`/agreement`, agrementData);
       return data;
     },
     onSuccess: (data) => {
-      console.log(data);
+      if(data?.message){
+      return toast.error("Already exist room.");
+      }
       toast.success("Successfully Sign Agrement.");
-    },
+    }
   });
 
   async function handelDataAgrement(data) {
@@ -47,6 +52,7 @@ function Apartment() {
       block_name: data?.block_name,
       apartment_no: data?.apartment_no,
       rent: data?.rent,
+      date: dateTime,
       status: "Pending",
     };
     try {

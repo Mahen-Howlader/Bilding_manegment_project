@@ -15,7 +15,7 @@ import { CgProfile } from "react-icons/cg";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState(true);
   const [toggle, setToggle] = useState(true);
   const [role, isLoading] = useRole();
   console.log(role, isLoading);
@@ -36,10 +36,10 @@ const Sidebar = () => {
             <Link to="/">
               <img
                 // className='hidden md:block'
-                src="https://i.ibb.co/4ZXzmq5/logo.png"
+                src="https://i.ibb.co/PhfZtKv/logo-hotel-removebg-preview.png"
                 alt="logo"
-                width="100"
-                height="100"
+                width="80"
+                height="80"
               />
             </Link>
           </div>
