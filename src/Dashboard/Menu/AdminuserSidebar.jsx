@@ -5,18 +5,28 @@ function AdminuserSidebar() {
   return (
     <div>
       <MenuItem
-        label="Make payment"
-        address="payment"
+        label="Admin Profile"
+        address="adminprofile"
         icon={MdOutlinePayment}
       ></MenuItem>
       <MenuItem
-        label="Payment history"
-        address="paymenthistory"
+        label="Manage Members"
+        address="managemember"
+        icon={MdOutlinePayment}
+      ></MenuItem>
+      <MenuItem
+        label="Make Announcemen"
+        address="makeannouncemen"
         icon={MdHistory}
       ></MenuItem>
       <MenuItem
-        label="Announcements"
-        address="announcements"
+        label="Agreement Requests"
+        address="agreementrequests"
+        icon={MdAnnouncement}
+      ></MenuItem>
+      <MenuItem
+        label="Manage Coupons"
+        address="managecoupons"
         icon={MdAnnouncement}
       ></MenuItem>
     </div>

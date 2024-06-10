@@ -24,9 +24,9 @@ const Sidebar = () => {
     setActive(!isActive);
   };
 
-  const toggleHandler = (event) => {
-    setToggle(event.target.checked);
-  };
+  // const toggleHandler = (event) => {
+  //   setToggle(event.target.checked);
+  // };
   return (
     <>
       {/* Small Screen Navbar */}
@@ -77,20 +77,30 @@ const Sidebar = () => {
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             {/* Conditional toggle button here.. */}
-            {role === "member" && (
+            {/* {role === "member" && (
               <ToggleBtn toggleHandler={toggleHandler} toggle={toggle} />
-            )}
+            )} */}
 
             {/*  Menu Items */}
             <nav>
               {/* Statistics */}
-              <MenuItem
+              {
+                role === "user"  && <MenuItem
                 label="My Profile"
                 address="profile"
                 icon={CgProfile}
               />
-              {role === "users" && <Normalusersidebar />}
-              {role === "user" && <Memberusersidebar />}
+              }
+              {
+                role === "member"  && <MenuItem
+                label="My Profile"
+                address="profile"
+                icon={CgProfile}
+              />
+              }
+
+              {role === "user" && <Normalusersidebar />}
+              {role === "member" && <Memberusersidebar />}
               {role === "admin" && <AdminuserSidebar />}
             </nav>
           </div>

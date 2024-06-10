@@ -7,6 +7,8 @@ import Apartment from "./Page/Apartment/Apartment";
 import Statistic from "./Component/Common/Statistic";
 import DashboardLayout from "./Dashboard/DashboardLayout/DashboardLayout";
 import Profile from "./Dashboard/DashboardComponent/Profile/Profile";
+import Managemember from "./Dashboard/DashboardAdminComponent/Managemember/Managemember";
+import Announcemen from "./Dashboard/DashboardAdminComponent/Announcemen/Announcemen";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path : "profile",
         element : <Profile></Profile>
+      },
+      {
+        path : "managemember",
+        element : <Managemember></Managemember>
+      },
+      {
+        path : "makeannouncemen",
+        element : <Announcemen></Announcemen>
       }
     ]
   }

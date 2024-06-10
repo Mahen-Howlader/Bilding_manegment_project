@@ -9,7 +9,7 @@ const Profile = () => {
   const { user } = useAuth();
   const [role, isRoleLoading] = useRole();
   //   console.log(useAxiosCommon);
-
+console.log(role)
   const { data: agrement, isLoading } = useQuery({
     queryKey: ["agrement"],
     queryFn: async () => {
@@ -58,39 +58,46 @@ const Profile = () => {
             </a>
           </div>
           <hr className="mt-6" />
-          <div className=" bg-gray-50">
-            <div className="text-center w-1/2 p-4 hover:bg-gray-100 cursor-pointer">
-              <p>
-                <span className="font-semibold">Accept date : </span>
-              </p>
+
+          {role === "member" && (
+            <div className="bg-gray-50">
+              <div className="text-center  pt-3 hover:bg-gray-100 cursor-pointer">
+                <h2 className="text-2xl underline underline-offset-8 pb-3 text-[#2F1793]">
+                  Agreement accept
+                </h2>
+                <p>
+                  <span className="font-semibold">
+                    Accept date : {agrement?.date}
+                  </span>
+                </p>
+              </div>
+              <div className="text-center  p-4 hover:bg-gray-100 cursor-pointer">
+                <p className="grid grid-cols-2 justify-items-start gap-3 ">
+                  <span className="font-semibold">
+                    Floor : {agrement?.floorNo}{" "}
+                  </span>
+                  <span className="font-semibold">
+                    Block : {agrement?.block_name}{" "}
+                  </span>
+                  <span className="font-semibold">
+                    Room no: {agrement?.apartment_no}{" "}
+                  </span>
+                  <span
+                    className={`font-semibold ${
+                      agrement?.status === `Pending`
+                        ? "text-red-500"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {" "}
+                    Status : {agrement?.status}{" "}
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="text-center  p-4 hover:bg-gray-100 cursor-pointer">
-              <p className="grid grid-cols-2 justify-items-start gap-3 ">
-                <span className="font-semibold">
-                  Floor : {agrement?.floorNo}{" "}
-                </span>
-                <span className="font-semibold">
-                  Block : {agrement?.block_name}{" "}
-                </span>
-                <span className="font-semibold">
-                  Room no: {agrement?.apartment_no}{" "}
-                </span>
-                <span
-                  className={`font-semibold ${
-                    agrement?.status === `Pending`
-                      ? "text-red-500"
-                      : "text-green-600"
-                  }`}
-                >
-                  {" "}
-                  Status : {agrement?.status}{" "}
-                </span>
-              </p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
-      {/* {role === "member" && "dfdf"} */}
     </>
   );
 };

@@ -57,9 +57,10 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  const saveUser = async (email) => {
+  const saveUser = async (curUser) => {
     const currentUser = {
-      email: email,
+      name : curUser?.displayName,
+      email: curUser?.email,
       role: "user",
       status: "Verified",
     };
@@ -79,7 +80,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        saveUser(currentUser?.email);
+        saveUser(currentUser);
       }
       setLoading(false);
     });
