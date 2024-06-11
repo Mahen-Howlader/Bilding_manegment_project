@@ -9,6 +9,7 @@ import DashboardLayout from "./Dashboard/DashboardLayout/DashboardLayout";
 import Profile from "./Dashboard/DashboardComponent/Profile/Profile";
 import Managemember from "./Dashboard/DashboardAdminComponent/Managemember/Managemember";
 import Announcemen from "./Dashboard/DashboardAdminComponent/Announcemen/Announcemen";
+import Agrementrequest from "./Dashboard/DashboardAdminComponent/Agrementrequest/Agrementrequest";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path : "makeannouncemen",
         element : <Announcemen></Announcemen>
+      },
+      {
+        path : "agreementrequests",
+        element : <Agrementrequest></Agrementrequest>
       }
     ]
   }

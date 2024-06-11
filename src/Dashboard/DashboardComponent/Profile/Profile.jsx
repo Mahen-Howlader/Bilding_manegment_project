@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
-import useAxiosCommon, { axiosCommon } from "../../../Hooks/useAxiosCommon";
 import axios from "axios";
 import Spinner from "../../../Component/Spinner";
 
@@ -12,6 +11,7 @@ const Profile = () => {
 console.log(role)
   const { data: agrement, isLoading } = useQuery({
     queryKey: ["agrement"],
+    enabled : !!user?.email,
     queryFn: async () => {
       const { data } = await axios.get(
         `http://localhost:8000/agreement/${user?.email}`
