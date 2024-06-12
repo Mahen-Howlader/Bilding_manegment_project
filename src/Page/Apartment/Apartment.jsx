@@ -31,16 +31,17 @@ function Apartment() {
   // G. Status(pending by default)
 
   const { mutateAsync } = useMutation({
+    enabled: !!user?.email,
     mutationFn: async (agrementData) => {
       const { data } = await axiosCommon.post(`/agreement`, agrementData);
       return data;
     },
     onSuccess: (data) => {
-      if(data?.message){
-      return toast.error("Already exist room.");
+      if (data?.message) {
+        return toast.error("Already exist room.");
       }
       toast.success("Successfully Sign Agrement.");
-    }
+    },
   });
 
   async function handelDataAgrement(data) {

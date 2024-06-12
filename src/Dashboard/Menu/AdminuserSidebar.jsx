@@ -1,5 +1,6 @@
 import { MdAnnouncement, MdHistory, MdOutlinePayment } from "react-icons/md";
 import MenuItem from "./MenuItem";
+import { RiCodeFill } from "react-icons/ri";
 
 function AdminuserSidebar() {
   return (
@@ -27,7 +28,7 @@ function AdminuserSidebar() {
       <MenuItem
         label="Manage Coupons"
         address="managecoupons"
-        icon={MdAnnouncement}
+        icon={RiCodeFill}
       ></MenuItem>
     </div>
   );

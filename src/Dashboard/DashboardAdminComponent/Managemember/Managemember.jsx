@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 function Managemember() {
   const axiosCommon = useAxiosCommon();
 
-  const { data: members = [], isLoading } = useQuery({
+  const { data: members = [], isLoading,refetch } = useQuery({
     queryKey: ["managemember"],
     queryFn: async () => {
       const { data } = await axiosCommon.get("/member");
@@ -18,12 +18,14 @@ function Managemember() {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (member) => {
-      const { data } = await axiosCommon.patch(`/rolechange/${member?.email}`);
-      return data;
+      const { data: roleChangeData } = await axiosCommon.patch(`/rolechange/${member?.email}`);
+      const { data: agreementDeleteData } = await axiosCommon.delete(`/agrementdelete/${member?.email}`);
+      return {roleChangeData,agreementDeleteData};
     },
     onSuccess: (data) => {
       console.log(data)
       toast.success("Remove member success.");
+      refetch()
     },
     onError: (err) => {
       console.log(err.message);

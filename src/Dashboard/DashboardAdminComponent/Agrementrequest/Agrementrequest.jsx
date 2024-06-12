@@ -10,7 +10,7 @@ function Agrementrequest() {
   const axiosCommon = useAxiosCommon();
   const [role, loading] = useRole();
   console.log(role);
-  const { data: agreementAllData = [], isLoading } = useQuery({
+  const { data: agreementAllData = [], isLoading,refetch } = useQuery({
     queryKey: ["agreement"],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/agreement`);
@@ -48,7 +48,6 @@ function Agrementrequest() {
           if (datarole?.matchedCount || deleteData?.deletedCount) {
             toast.success("Reject successful !");
           }
-          
         } catch (error) {
           console.error("Error updating status:", error);
         }
@@ -78,16 +77,9 @@ function Agrementrequest() {
             `/changerole/${room?.userEmail}`,
             role
           );
-
-          // const { data: deleteData } = await axiosCommon.delete(
-          //   `/agrementdelete/${room?.userEmail}`
-          // );
-
-          // console.log(deleteData);
-          console.log(datarole);
-
           if (statusData?.modifiedCount && datarole?.modifiedCount) {
-            toast.success("Accepted romm !");
+            toast.success("Accepted room !");
+            refetch()
           }
         } catch (error) {
           console.error("Error updating status:", error);
@@ -99,10 +91,6 @@ function Agrementrequest() {
   return (
     <div>
       <section className="container mx-auto p-6 font-mono">
-        <p className=" rounded-full focus:outline-none focus:ring-2 focus:bg-indigo-50 focus:ring-indigo-800 ml-4 sm:ml-8">
-          <button className="btn">Accept</button>
-        </p>
-
         <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
           <div className="w-full overflow-x-auto">
             <table className="w-full">

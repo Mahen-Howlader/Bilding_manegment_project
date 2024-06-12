@@ -10,6 +10,7 @@ import Profile from "./Dashboard/DashboardComponent/Profile/Profile";
 import Managemember from "./Dashboard/DashboardAdminComponent/Managemember/Managemember";
 import Announcemen from "./Dashboard/DashboardAdminComponent/Announcemen/Announcemen";
 import Agrementrequest from "./Dashboard/DashboardAdminComponent/Agrementrequest/Agrementrequest";
+import Managecoupons from "./Dashboard/DashboardAdminComponent/Managecoupons/Managecoupons";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path : "agreementrequests",
         element : <Agrementrequest></Agrementrequest>
+      },
+      {
+        path : "managecoupons",
+        element : <Managecoupons></Managecoupons>
       }
     ]
   }
