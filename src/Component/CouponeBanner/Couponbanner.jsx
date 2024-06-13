@@ -1,4 +1,6 @@
 function Couponbanner() {
+  // mahin
+  // mahin Howlader ?
   const copyToClipboard = () => {
     const couponCode = document.getElementById("cpnCode").innerText;
     navigator.clipboard.writeText(couponCode);
@@ -7,7 +9,7 @@ function Couponbanner() {
   return (
     <div>
       <div className="container mx-auto">
-        <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
+        <div className="bg-gradient-to-br w-full from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md relative">
           <img
             src="https://i.postimg.cc/KvTqpZq9/uber.png"
             className="w-20 mx-auto mb-4 rounded-lg"

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
+import axios from "axios";
 function Managecoupons() {
   const [open, setOpen] = React.useState(false);
   const axiosCommon = useAxiosCommon();
@@ -11,7 +12,7 @@ function Managecoupons() {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (coupon) => {
-      const { data } = await axiosCommon.post(`/agreement`, coupon);
+      const { data } = await axiosCommon.post(`/coupon`, coupon);
       return data;
     },
     onSuccess: (data) => {
@@ -27,8 +28,13 @@ function Managecoupons() {
     const couponCode = e.target.elements.couponCode.value;
 
     const discountPercentage = e.target.elements.discountPercentage.value;
-    const couponDescription = e.target.elements.couponDescription.value;
-    const coupon = couponCode.split("").join(" ");
+    const couponDescription = e.target.elements.couponDescription.value.toUpperCase();
+    const coupon = couponCode.split(" ").join("").toUpperCase();
+
+    if (coupon.length > 8) {
+      return toast.error("Please coupon code input max 8 carecter.");
+    }
+
     const infoCoupon = { discountPercentage, couponDescription, coupon };
 
     try {
@@ -40,6 +46,20 @@ function Managecoupons() {
     // console.log(infoCoupon);
   };
 
+
+
+
+  // get coupon array
+  const { data: couponData = [] } = useQuery({
+    queryKey: ['couponData'],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get('/coupon');
+      return data;
+    }
+  });
+  // console.log()
+
+
   return (
     <div>
       <>
@@ -48,7 +68,7 @@ function Managecoupons() {
             className="rounded-lg bg-green-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             onClick={() => setOpen(true)}
           >
-            Open modal
+            New coupon add
           </button>
         </div>
 
@@ -116,50 +136,47 @@ function Managecoupons() {
         </Modal>
       </>
 
+
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-2">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Product name
+                Coupon code
               </th>
               <th scope="col" className="px-6 py-3">
-                Color
+                Discount percentage
               </th>
               <th scope="col" className="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
+                Coupon
+                description
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4 text-right">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
+            {
+              couponData.map((couponItem, index) => {
+                return <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {couponItem?.coupon}
+                  </th>
+                  <td className="px-6 py-4">
+                    {couponItem?.discountPercentage} %
+                  </td>
+                  <td className="px-6 py-4">
+                    {couponItem?.couponDescription}
+                  </td>
+                </tr>
+              })
+            }
           </tbody>
         </table>
       </div>
+
+
     </div>
   );
 }
