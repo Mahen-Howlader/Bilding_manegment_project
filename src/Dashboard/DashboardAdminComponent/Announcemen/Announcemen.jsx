@@ -1,10 +1,12 @@
 import Swal from "sweetalert2";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
+import moment from "moment";
 
 function Announcemen() {
   const axiosCommon = useAxiosCommon();
   function handelAnnouncemen(e) {
     e.preventDefault();
+    const dataTime = moment().format('MMMM Do YYYY, h:mm:ss a')
     const title = e.target.title.value;
     const description = e.target.description.value;
 
@@ -23,6 +25,7 @@ function Announcemen() {
         const { data } = await axiosCommon.post("/announcemen", {
           title,
           description,
+          dataTime
         });
         console.log(data);
         if (data?.insertedId) {
@@ -31,6 +34,7 @@ function Announcemen() {
             text: "Your file has been submit.",
             icon: "success",
           });
+          e.target.reset();
         } else {
           Swal.fire({
             icon: "error",

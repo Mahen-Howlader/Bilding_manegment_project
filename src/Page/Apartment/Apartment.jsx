@@ -20,15 +20,22 @@ function Apartment() {
       return data;
     },
   });
-  // console.log(allaprtment);
 
-  // A. User name(who want to make an agreement/logged in user)
-  // B. User email(who want to make an agreement/logged in user)
-  // C. Floor no
-  // D. Block name
-  // E. Apartment no
-  // F. Rent
-  // G. Status(pending by default)
+
+  const { data: userInfo } = useQuery({
+    queryKey: ["userInfo"],
+    enabled : !!user?.email,
+    queryFn: async () => {
+      const { data } = await axiosCommon.get(`/user/${user?.email}`);
+      return data;
+    },
+  });
+
+
+
+
+
+
 
   const { mutateAsync } = useMutation({
     enabled: !!user?.email,
@@ -43,6 +50,7 @@ function Apartment() {
       toast.success("Successfully Sign Agrement.");
     },
   });
+  if (isLoading) return <h2>Loaing...</h2>
 
   async function handelDataAgrement(data) {
     // console.log(data)
@@ -62,6 +70,9 @@ function Apartment() {
       console.log(err?.message);
     }
   }
+
+  
+  console.log(userInfo)
 
   return (
     <div className="bg-[#F0F1F5]">
@@ -99,6 +110,7 @@ function Apartment() {
               <div className="p-3">
                 <button
                   onClick={() => handelDataAgrement(appartment)}
+                  disabled={userInfo?.role === "admin"}
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#DC5658] rounded-lg hover:bg-[#DC5658]
 bg-[#DC5658]focus:ring-4 focus:outline-none focus:bg-[#DC5658]
 bg-[#DC5658] dark:bg-[#DC5658]

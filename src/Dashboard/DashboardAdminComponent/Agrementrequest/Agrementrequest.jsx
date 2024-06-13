@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
-import { Link } from "react-router-dom";
 import Spinner from "../../../Component/Spinner";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";

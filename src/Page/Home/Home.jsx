@@ -8,7 +8,7 @@ function Home() {
     return (
         <div>
             <Banner></Banner>
-            <Couponbanner></Couponbanner>
+            {/* <Couponbanner></Couponbanner> */}
         </div>
     );
 }
