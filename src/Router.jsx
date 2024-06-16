@@ -12,6 +12,7 @@ import Announcemen from "./Dashboard/DashboardAdminComponent/Announcemen/Announc
 import Agrementrequest from "./Dashboard/DashboardAdminComponent/Agrementrequest/Agrementrequest";
 import Managecoupons from "./Dashboard/DashboardAdminComponent/Managecoupons/Managecoupons";
 import MemberAnnouncements from "./Dashboard/DashboardMember/MemberAnnouncements/MemberAnnouncements";
+import Makepayment from "./Dashboard/DashboardMember/Makepayment/Makepayment";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path : "announcements",
         element : <MemberAnnouncements></MemberAnnouncements>
+      },
+      {
+        path : "payment",
+        element : <Makepayment></Makepayment>
       }
     ]
   }

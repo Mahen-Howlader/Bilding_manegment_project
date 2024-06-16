@@ -74,6 +74,8 @@ const AuthProvider = ({ children }) => {
     );
     return data;
   };
+
+  
   
 
   // onAuthStateChange
