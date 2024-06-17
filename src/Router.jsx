@@ -13,6 +13,7 @@ import Agrementrequest from "./Dashboard/DashboardAdminComponent/Agrementrequest
 import Managecoupons from "./Dashboard/DashboardAdminComponent/Managecoupons/Managecoupons";
 import MemberAnnouncements from "./Dashboard/DashboardMember/MemberAnnouncements/MemberAnnouncements";
 import Makepayment from "./Dashboard/DashboardMember/Makepayment/Makepayment";
+import Paymentfare from "./Dashboard/DashboardMember/Makepayment/Paymentfare";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path : "payment",
         element : <Makepayment></Makepayment>
+      },
+      {
+        path : "paymentsFare",
+        element : <Paymentfare></Paymentfare>
       }
     ]
   }

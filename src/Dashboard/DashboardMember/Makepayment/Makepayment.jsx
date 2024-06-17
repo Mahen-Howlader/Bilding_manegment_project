@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosCommon from '../../../Hooks/useAxiosCommon';
 import Spinner from '../../../Component/Spinner';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const MakePayment = () => {
     const { user } = useAuth();
@@ -176,14 +177,14 @@ const MakePayment = () => {
                         </button>
                     </div>
                 </div>
-                <button
-                    type="submit"
-                    onClick={PaymentModal}
+                <Link
+                    to="/dashboard/paymentsFare"
                     className="w-full px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
                     Pay
-                </button>
+                </Link>
             </form>
+           
         </div>
     );
 };

@@ -72,10 +72,9 @@ const AuthProvider = ({ children }) => {
       `${import.meta.env.VITE_API_URL}/user`,
       currentUser
     );
+    
     return data;
   };
-
-  
   
 
   // onAuthStateChange
