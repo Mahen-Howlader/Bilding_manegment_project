@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../Hooks/useAuth';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosCommon from '../../../Hooks/useAxiosCommon';
 import Spinner from '../../../Component/Spinner';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MakePayment = () => {
+    const navigate = useNavigate()
     const { user } = useAuth();
     const axiosCommon = useAxiosCommon();
     const [coupon, setCoupon] = useState('');
-    const [couponResult, setCouponResult] = useState(null);
     const [finalRent, setFinalRent] = useState(null);
-
 
     const { data: rentFare = {}, error, isLoading } = useQuery({
         enabled: !!user?.email,
@@ -65,24 +65,44 @@ const MakePayment = () => {
 
     if (isLoading) return <Spinner />;
 
-    function handleSubmitInfo(e) {
+    async function handleSubmitInfo(e) {
         e.preventDefault();
         const form = e.target;
         const month = form.month.value;
-        console.log(month);
+
+        // const storeHistory = {
+        //     month,
+        //     finalRent,
+        //     email: user?.email
+
+        // }
+        navigate(`/dashboard/paymentsFare?month=${month}&finalRent=${finalRent}`);
+
+
+        // const { data, isLoading, isError } = useQuery('paymentsHistory', async () =>
+        //     await axios.post('/paymentshistory', storeHistory).then((response) => response.data)
+        // );
+
+        // const { mutateAsync } = useMutation({
+        //     enabled: !!user?.email,
+        //     mutationFn: async (dataStore) => {
+        //         const { data } = await axiosCommon.post('/paymentshistory', dataStore);
+        //         return data;
+        //     },
+        //     onSuccess: (data) => {
+        //         console.log(data)
+        //         toast.success("Successfully Signed Agreement.");
+        //     }
+
+        // });
+
+        // try {
+        //     await mutateAsync(storeHistory);
+        // } catch (err) {
+        //     console.log(err?.message);
+        // }
         // Additional form handling logic here
     }
-
-
-
-    function PaymentModal() {
-
-    }
-
-
-
-
-
 
 
     return (
@@ -177,14 +197,14 @@ const MakePayment = () => {
                         </button>
                     </div>
                 </div>
-                <Link
-                    to="/dashboard/paymentsFare"
+                <button
+                    type='submit'
                     className="w-full px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                 >
                     Pay
-                </Link>
+                </button>
             </form>
-           
+
         </div>
     );
 };

@@ -14,6 +14,8 @@ import Managecoupons from "./Dashboard/DashboardAdminComponent/Managecoupons/Man
 import MemberAnnouncements from "./Dashboard/DashboardMember/MemberAnnouncements/MemberAnnouncements";
 import Makepayment from "./Dashboard/DashboardMember/Makepayment/Makepayment";
 import Paymentfare from "./Dashboard/DashboardMember/Makepayment/Paymentfare";
+import Paymenthistory from "./Dashboard/DashboardMember/Paymenthistory/Paymenthistory";
+import Announcementdetails from "./Dashboard/DashboardUser/AnnouncementDetails/Announcementdetails";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +79,14 @@ const router = createBrowserRouter([
       {
         path : "paymentsFare",
         element : <Paymentfare></Paymentfare>
+      },
+      {
+        path : "paymenthistory",
+        element : <Paymenthistory></Paymenthistory>
+      },
+      {
+        path : "announcements/announcementsdetails/:id",
+        element : <Announcementdetails></Announcementdetails>
       }
     ]
   }
