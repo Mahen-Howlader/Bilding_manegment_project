@@ -12,7 +12,7 @@ function Home() {
             <div className="container mx-auto my-5">
                 <Couponbanner></Couponbanner>
                 <Aboutbulding></Aboutbulding>
-                {/* <Maphome></Maphome> */}
+                <Maphome></Maphome>
             </div>
                 <Footer></Footer>
         </div>

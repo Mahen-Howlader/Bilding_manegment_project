@@ -1,6 +1,7 @@
-import { MdAnnouncement, MdHistory, MdOutlinePayment } from "react-icons/md";
+import { MdAnnouncement, MdHistory, MdOutlinePayment, MdOutlineSpaceDashboard } from "react-icons/md";
 import MenuItem from "./MenuItem";
 import { RiCodeFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 function AdminuserSidebar() {
   return (
@@ -8,12 +9,12 @@ function AdminuserSidebar() {
       <MenuItem
         label="Admin Profile"
         address="adminprofile"
-        icon={MdOutlinePayment}
+        icon={MdOutlineSpaceDashboard}
       ></MenuItem>
       <MenuItem
         label="Manage Members"
         address="managemember"
-        icon={MdOutlinePayment}
+        icon={FaUser}
       ></MenuItem>
       <MenuItem
         label="Make Announcemen"

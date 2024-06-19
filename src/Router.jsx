@@ -16,6 +16,7 @@ import Makepayment from "./Dashboard/DashboardMember/Makepayment/Makepayment";
 import Paymentfare from "./Dashboard/DashboardMember/Makepayment/Paymentfare";
 import Paymenthistory from "./Dashboard/DashboardMember/Paymenthistory/Paymenthistory";
 import Announcementdetails from "./Dashboard/DashboardUser/AnnouncementDetails/Announcementdetails";
+import Adminprofile from "./Dashboard/DashboardAdminComponent/Adminprofile/Adminprofile";
 
 const router = createBrowserRouter([
   {
@@ -43,50 +44,54 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    children : [
+    children: [
       {
-        index : true,
-        element : <Statistic></Statistic>
+        index: true,
+        element: <Profile></Profile>
       },
       {
-        path : "profile",
-        element : <Profile></Profile>
+        path: "profile",
+        element: <Profile></Profile>
       },
       {
-        path : "managemember",
-        element : <Managemember></Managemember>
+        path: "managemember",
+        element: <Managemember></Managemember>
       },
       {
-        path : "makeannouncemen",
-        element : <Announcemen></Announcemen>
+        path: "makeannouncemen",
+        element: <Announcemen></Announcemen>
       },
       {
-        path : "agreementrequests",
-        element : <Agrementrequest></Agrementrequest>
+        path: "agreementrequests",
+        element: <Agrementrequest></Agrementrequest>
       },
       {
-        path : "managecoupons",
-        element : <Managecoupons></Managecoupons>
+        path: "managecoupons",
+        element: <Managecoupons></Managecoupons>
       },
       {
-        path : "announcements",
-        element : <MemberAnnouncements></MemberAnnouncements>
+        path: "announcements",
+        element: <MemberAnnouncements></MemberAnnouncements>
       },
       {
-        path : "payment",
-        element : <Makepayment></Makepayment>
+        path: "payment",
+        element: <Makepayment></Makepayment>
       },
       {
-        path : "paymentsFare",
-        element : <Paymentfare></Paymentfare>
+        path: "paymentsFare",
+        element: <Paymentfare></Paymentfare>
       },
       {
-        path : "paymenthistory",
-        element : <Paymenthistory></Paymenthistory>
+        path: "paymenthistory",
+        element: <Paymenthistory></Paymenthistory>
       },
       {
-        path : "announcements/announcementsdetails/:id",
-        element : <Announcementdetails></Announcementdetails>
+        path: "announcements/announcementsdetails/:id",
+        element: <Announcementdetails></Announcementdetails>
+      },
+      {
+        path: "Adminprofile",
+        element: <Adminprofile></Adminprofile>
       }
     ]
   }

@@ -108,9 +108,9 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-AuthProvider.propTypes = {
-  // Array of children.
-  children: PropTypes.object,
-};
+// AuthProvider.propTypes = {
+//   // Array of children.
+//   children: PropTypes.object,
+// };
 
 export default AuthProvider;

@@ -3,11 +3,12 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
+import useRole from "../../Hooks/useRole";
 function Nav() {
   const location = useLocation();
   const { user } = useAuth();
   const { logOut } = useAuth();
-
+  const [role, isLoading] = useRole()
   function handelLogout() {
     logOut();
   }
@@ -19,9 +20,8 @@ function Nav() {
 
   return (
     <div
-      className={`  ${
-        location.pathname === "/" ? "fixed z-30 w-full bg-[#3017937c]" : "bg-[#2F1793]"
-      }`}
+      className={`  ${location.pathname === "/" ? "fixed z-30 w-full bg-[#3017937c]" : "bg-[#2F1793]"
+        }`}
     >
       <div className="container text-white mx-auto">
         <div className="navbar">
@@ -87,10 +87,24 @@ function Nav() {
                 >
                   <li className="text-center">{user && user?.displayName}</li>
                   <li>
-                    <Link to="/dashboard" className="">
-                      <MdDashboard size={23} />
-                      DASHBOARD
-                    </Link>
+                    {
+                      role === "admin" && <Link to="/dashboard/adminprofile" className="">
+                        <MdDashboard size={23} />
+                        DASHBOARD
+                      </Link>
+                    }
+                    {
+                      role === "user" && <Link to="/dashboard/profile" className="">
+                        <MdDashboard size={23} />
+                        DASHBOARD
+                      </Link>
+                    }
+                    {
+                      role === "member" && <Link to="/dashboard/profile" className="">
+                        <MdDashboard size={23} />
+                        DASHBOARD
+                      </Link>
+                    }
                   </li>
                   <li>
                     <div onClick={handelLogout} className="">
