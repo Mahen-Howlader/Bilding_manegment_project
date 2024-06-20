@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosCommon from '../../../Hooks/useAxiosCommon';
 import useAuth from '../../../Hooks/useAuth';
-import { HiOutlineUser, HiOutlineMail } from 'react-icons/hi'; 
+import { HiOutlineUser, HiOutlineMail } from 'react-icons/hi';
 import Spinner from '../../../Component/Spinner';
 import { MdMeetingRoom } from 'react-icons/md';
 

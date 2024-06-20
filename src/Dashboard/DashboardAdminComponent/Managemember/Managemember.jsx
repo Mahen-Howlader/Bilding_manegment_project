@@ -4,18 +4,16 @@ import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 import Spinner from "../../../Component/Spinner";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAxiosSequre from "../../../Hook/useAxiosSequre";
 
 function Managemember() {
   const axiosCommon = useAxiosCommon();
+  const axiosSequre = useAxiosSequre()
 
   const { data: members = [], isLoading, refetch } = useQuery({
     queryKey: ["managemember"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/member", {
-        headers: {
-          authorization: `Token ${localStorage.getItem("access_token")}`
-        }
-      });
+      const { data } = await axiosSequre.get("/member");
       return data;
     },
   });
@@ -27,7 +25,6 @@ function Managemember() {
       return { roleChangeData, agreementDeleteData };
     },
     onSuccess: (data) => {
-      console.log(data)
       toast.success("Remove member success.");
       refetch()
     },
@@ -37,7 +34,6 @@ function Managemember() {
   });
 
   async function rejectableFun(member) {
-    console.log(member);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -56,7 +52,6 @@ function Managemember() {
       }
     });
   }
-  console.log(members)
   if (isLoading) return <Spinner></Spinner>;
 
   return (
@@ -76,7 +71,7 @@ function Managemember() {
                 return (
                   <tr key={index} className="text-gray-700">
                     <td className="px-4 py-3 text-ms font-semibold border">
-                      {item?.displayName}
+                      {item?.name}
                     </td>
                     <td className="px-4 py-3 text-ms font-semibold border">
                       {item?.email}

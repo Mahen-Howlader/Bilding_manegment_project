@@ -12,6 +12,8 @@ import Memberusersidebar from "../Menu/Memberusersidebar";
 import AdminuserSidebar from "../Menu/AdminuserSidebar";
 import { AiOutlineBars } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
+import useAdmin from "../../Hook/useAdmin";
+import Spinner from "../../Component/Spinner";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -19,17 +21,15 @@ const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
   const [role, isLoading] = useRole();
   console.log(role, isLoading);
-  // Sidebar Responsive Handler
+  const [isAdmin,adminLoading] = useAdmin()
+  console.log(isAdmin)
+
   const handleToggle = () => {
     setActive(!isActive);
   };
 
-  // const toggleHandler = (event) => {
-  //   setToggle(event.target.checked);
-  // };
   return (
     <>
-      {/* Small Screen Navbar */}
       <div className="bg-gray-100 text-gray-800 flex justify-between  md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
@@ -100,7 +100,9 @@ const Sidebar = () => {
 
               {role === "user" && <Normalusersidebar />}
               {role === "member" && <Memberusersidebar />}
-              {role === "admin" && <AdminuserSidebar />}
+
+
+              {isAdmin && role === "admin" && <AdminuserSidebar />}
             </nav>
           </div>
         </div>

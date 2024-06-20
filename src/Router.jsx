@@ -17,6 +17,7 @@ import Paymentfare from "./Dashboard/DashboardMember/Makepayment/Paymentfare";
 import Paymenthistory from "./Dashboard/DashboardMember/Paymenthistory/Paymenthistory";
 import Announcementdetails from "./Dashboard/DashboardUser/AnnouncementDetails/Announcementdetails";
 import Adminprofile from "./Dashboard/DashboardAdminComponent/Adminprofile/Adminprofile";
+import Loginprivedroute from "./Dashboard/Privateroute/Loginprivedroute";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/apartment",
-        element: <Apartment></Apartment>,
+        element: <Loginprivedroute><Apartment></Apartment></Loginprivedroute> ,
       },
     ],
   },
@@ -43,55 +44,55 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: <Loginprivedroute><DashboardLayout></DashboardLayout></Loginprivedroute>,
     children: [
       {
         index: true,
-        element: <Profile></Profile>
+        element: <Loginprivedroute><Profile></Profile></Loginprivedroute>
       },
       {
         path: "profile",
-        element: <Profile></Profile>
+        element: <Loginprivedroute><Profile></Profile></Loginprivedroute>
       },
       {
         path: "managemember",
-        element: <Managemember></Managemember>
+        element: <Loginprivedroute><Managemember></Managemember></Loginprivedroute> 
       },
       {
         path: "makeannouncemen",
-        element: <Announcemen></Announcemen>
+        element: <Loginprivedroute><Announcemen></Announcemen></Loginprivedroute> 
       },
       {
         path: "agreementrequests",
-        element: <Agrementrequest></Agrementrequest>
+        element: <Loginprivedroute><Agrementrequest></Agrementrequest></Loginprivedroute> 
       },
       {
         path: "managecoupons",
-        element: <Managecoupons></Managecoupons>
+        element: <Loginprivedroute><Managecoupons></Managecoupons></Loginprivedroute> 
       },
       {
         path: "announcements",
-        element: <MemberAnnouncements></MemberAnnouncements>
+        element: <Loginprivedroute><MemberAnnouncements></MemberAnnouncements></Loginprivedroute> 
       },
       {
         path: "payment",
-        element: <Makepayment></Makepayment>
+        element: <Loginprivedroute><Makepayment></Makepayment></Loginprivedroute> 
       },
       {
         path: "paymentsFare",
-        element: <Paymentfare></Paymentfare>
+        element: <Loginprivedroute><Paymentfare></Paymentfare></Loginprivedroute> 
       },
       {
         path: "paymenthistory",
-        element: <Paymenthistory></Paymenthistory>
+        element: <Loginprivedroute><Paymenthistory></Paymenthistory></Loginprivedroute> 
       },
       {
         path: "announcements/announcementsdetails/:id",
-        element: <Announcementdetails></Announcementdetails>
+        element: <Loginprivedroute><Announcementdetails></Announcementdetails></Loginprivedroute> 
       },
       {
         path: "Adminprofile",
-        element: <Adminprofile></Adminprofile>
+        element: <Loginprivedroute><Adminprofile></Adminprofile></Loginprivedroute> 
       }
     ]
   }
