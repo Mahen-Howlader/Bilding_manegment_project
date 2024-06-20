@@ -58,11 +58,11 @@ function Couponbanner() {
             return <SwiperSlide key={index}>
 
               <div className="">
-                <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 px-20 rounded-lg shadow-md ">
+                <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 md:px-20 rounded-lg shadow-md ">
                   <h3 className="text-2xl font-semibold mb-4">
                     {cou?.discountPercentage}% {cou?.couponDescription}
                   </h3>
-                  <div className="flex items-center space-x-2 mb-6">
+                  <div className="flex items-center justify-center space-x-2 mb-6">
                     <span
                       id="cpnCode"
                       className="border-dashed border text-white px-4 py-2 rounded-l"

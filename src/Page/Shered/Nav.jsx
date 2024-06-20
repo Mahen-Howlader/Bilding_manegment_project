@@ -7,6 +7,7 @@ import useRole from "../../Hooks/useRole";
 function Nav() {
   const location = useLocation();
   const { user } = useAuth();
+  console.log(user)
   const { logOut } = useAuth();
   const [role, isLoading] = useRole()
   function handelLogout() {

@@ -8,10 +8,14 @@ import Swal from "sweetalert2";
 function Managemember() {
   const axiosCommon = useAxiosCommon();
 
-  const { data: members = [], isLoading,refetch } = useQuery({
+  const { data: members = [], isLoading, refetch } = useQuery({
     queryKey: ["managemember"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/member");
+      const { data } = await axiosCommon.get("/member", {
+        headers: {
+          authorization: `Token ${localStorage.getItem("access_token")}`
+        }
+      });
       return data;
     },
   });
@@ -20,7 +24,7 @@ function Managemember() {
     mutationFn: async (member) => {
       const { data: roleChangeData } = await axiosCommon.patch(`/rolechange/${member?.email}`);
       const { data: agreementDeleteData } = await axiosCommon.delete(`/agrementdelete/${member?.email}`);
-      return {roleChangeData,agreementDeleteData};
+      return { roleChangeData, agreementDeleteData };
     },
     onSuccess: (data) => {
       console.log(data)
@@ -52,7 +56,7 @@ function Managemember() {
       }
     });
   }
-
+  console.log(members)
   if (isLoading) return <Spinner></Spinner>;
 
   return (
@@ -72,7 +76,7 @@ function Managemember() {
                 return (
                   <tr key={index} className="text-gray-700">
                     <td className="px-4 py-3 text-ms font-semibold border">
-                      {item?.name}
+                      {item?.displayName}
                     </td>
                     <td className="px-4 py-3 text-ms font-semibold border">
                       {item?.email}

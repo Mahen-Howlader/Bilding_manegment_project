@@ -55,7 +55,7 @@ function Agrementrequest() {
   }
 
   function acceptableFun(room) {
-    const status = { status: "Accept" };
+    const status = { status: "Accept"};
     const role = { role: "member" };
     Swal.fire({
       title: "Are you sure?",

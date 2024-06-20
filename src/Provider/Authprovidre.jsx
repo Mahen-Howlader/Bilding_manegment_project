@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
@@ -14,6 +13,7 @@ import {
 
 import axios from "axios";
 import app from "../Firebase/Firebase";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -22,7 +22,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const axiosCommon = useAxiosCommon()
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -45,9 +45,6 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true);
-    // await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-    //   withCredentials: true,
-    // })
     return signOut(auth);
   };
 
@@ -60,36 +57,48 @@ const AuthProvider = ({ children }) => {
 
   const saveUser = async (curUser) => {
     const currentUser = {
-      name : curUser?.displayName,
+      name: curUser?.displayName,
       email: curUser?.email,
       role: "user",
       status: "Verified",
     };
-    
-    console.log(currentUser); // Log the payload to check its structure and values
-  
-    const { data } = await axios.post(
+
+    const { data: userData } = await axios.post(
       `${import.meta.env.VITE_API_URL}/user`,
       currentUser
     );
-    
-    return data;
+    console.log(userData)
+    // return userData;
   };
-  
+
 
   // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+      // console.log(currentUser)
       if (currentUser) {
         saveUser(currentUser);
+        setLoading(false);
+        setUser(currentUser)
+
+        // Prepare userInfo payload
+        const userInfo = { email: currentUser.email };
+
+        // Make a POST request to the server to get the JWT
+        axiosCommon.post("/jwt", userInfo)
+          .then(res => {
+            if (res.data.token) {
+              localStorage.setItem("access_token", res.data.token);
+            }
+          })
+      } else {
+        localStorage.removeItem("access_token")
       }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [axiosCommon]);
 
   const authInfo = {
     user,

@@ -8,6 +8,7 @@ import useAuth from "../../Hooks/useAuth";
 import { VscRepoFetch } from "react-icons/vsc";
 import toast from "react-hot-toast";
 import moment from "moment";
+import Spinner from "../../Component/Spinner";
 function Apartment() {
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
@@ -24,17 +25,12 @@ function Apartment() {
 
   const { data: userInfo } = useQuery({
     queryKey: ["userInfo"],
-    enabled : !!user?.email,
+    enabled: !!user?.email,
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/user/${user?.email}`);
       return data;
     },
   });
-
-
-
-
-
 
 
   const { mutateAsync } = useMutation({
@@ -50,7 +46,7 @@ function Apartment() {
       toast.success("Successfully Sign Agrement.");
     },
   });
-  if (isLoading) return <h2>Loaing...</h2>
+  if (isLoading) return <Spinner></Spinner>
 
   async function handelDataAgrement(data) {
     // console.log(data)
@@ -71,22 +67,22 @@ function Apartment() {
     }
   }
 
-  
+
   console.log(userInfo)
 
   return (
     <div className="bg-[#F0F1F5]">
-      <div className="grid grid-cols-4 container mx-auto gap-5 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 container mx-auto gap-5 py-10">
         {allaprtment?.map((appartment, index) => {
           return (
             <div
               key={index}
-              className="max-w-sm bg-[#FFFFFF] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              className=" bg-[#FFFFFF] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
             >
               <div className="relative">
                 <a href="#">
                   <img
-                    className="rounded-t-lg h-[200px] object-cover"
+                    className="rounded-t-lg w-full h-[200px] object-cover"
                     src={appartment?.apartment_image}
                     alt=""
                   />
