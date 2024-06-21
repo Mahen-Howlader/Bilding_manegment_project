@@ -1,21 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
-import axios from "axios";
 import Spinner from "../../../Component/Spinner";
+import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 
 const Profile = () => {
   const { user } = useAuth();
   const [role, isRoleLoading] = useRole();
+  const axiosCommon = useAxiosCommon()
   //   console.log(useAxiosCommon);
-console.log(role)
   const { data: agrement, isLoading } = useQuery({
-    queryKey: ["agrement"],
-    enabled : !!user?.email,
+    queryKey: ["agrement", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
-      const { data } = await axios.get(
-        `http://localhost:8000/agreement/${user?.email}`
-      );
+      const { data } = await axiosCommon.get(`/agreement/${user?.email}`);
       // console.log(data?.role)
       return data;
     },
@@ -83,11 +81,10 @@ console.log(role)
                     Room no: {agrement?.apartment_no}{" "}
                   </span>
                   <span
-                    className={`font-semibold ${
-                      agrement?.status === `Pending`
+                    className={`font-semibold ${agrement?.status === `Pending`
                         ? "text-red-500"
                         : "text-green-600"
-                    }`}
+                      }`}
                   >
                     {" "}
                     Status : {agrement?.status}{" "}

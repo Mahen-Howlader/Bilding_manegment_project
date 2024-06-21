@@ -4,22 +4,21 @@ import useAuth from '../../../Hooks/useAuth';
 import { HiOutlineUser, HiOutlineMail } from 'react-icons/hi';
 import Spinner from '../../../Component/Spinner';
 import { MdMeetingRoom } from 'react-icons/md';
+import useAxiosSequre, { axiosSequre } from '../../../Hook/useAxiosSequre';
 
 function Adminprofile() {
     const [adminData, setAdminData] = useState(null);
     const { user } = useAuth();
-    const axiosCommon = useAxiosCommon();
-    console.log(user)
+    const axiosSequre = useAxiosSequre();
     useEffect(() => {
-        axiosCommon.get('/admin-state')
+        axiosSequre.get('/admin-state')
             .then(res => {
-                console.log(res);
                 setAdminData(res.data);
             })
             .catch(error => {
                 console.error('Error fetching admin state:', error);
             });
-    }, []);
+    }, [axiosSequre]);
 
     if (!adminData) {
         return <Spinner></Spinner>

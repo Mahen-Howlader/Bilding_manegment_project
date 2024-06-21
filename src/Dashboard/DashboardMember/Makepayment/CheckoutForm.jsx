@@ -14,14 +14,12 @@ function CheckoutForm({ month, finalRent }) {
     const navigate = useNavigate()
     const [error, setError] = useState()
     const axiosCommon = useAxiosCommon()
-    console.log(finalRent)
 
     useEffect(() => {
         if (finalRent > 0) {
             axiosCommon
                 .post("/create-payment-intent", { price: finalRent })
                 .then((res) => {
-                    console.log(res.data)
                     setClientSecret(res.data.clientSecret);
                 });
         }
@@ -89,7 +87,6 @@ function CheckoutForm({ month, finalRent }) {
                     status: "Pending"
                 }
                 const { data } = await axiosCommon.post("/paymentHistory", payment);
-                console.log(data)
                 if (data.insertedId) {
                     toast.success("Payment completed")
                     navigate("/dashboard/paymenthistory")

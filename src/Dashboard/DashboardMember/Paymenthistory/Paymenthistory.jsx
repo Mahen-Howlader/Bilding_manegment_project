@@ -15,8 +15,18 @@ function Paymenthistory(props) {
         }
     })
 
+    console.log(data)
+
     if (isLoading) return <Spinner></Spinner>;
-    
+
+
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleDateString(undefined, options);
+    };
+
+
     return (
         <div>
             <div className=' px-10 py-10 min-h-screen  from-purple-200 via-purple-300 to-purple-500 bg-gradient-to-br'>
@@ -29,6 +39,7 @@ function Paymenthistory(props) {
                                     <th scope="col" className="py-3 px-6">Bank Account</th>
                                     <th scope="col" className="py-3 px-6">Month</th>
                                     <th scope="col" className="py-3 px-6">Amount</th>
+                                    <th scope="col" className="py-3 px-6">Pay Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,6 +50,9 @@ function Paymenthistory(props) {
                                             <td className="py-4 px-6">{payment?.email}</td>
                                             <td className="py-4 px-6">{payment?.month}</td>
                                             <td className="py-4 px-6">{payment?.finalRent}$</td>
+                                            <td className="py-4 px-6">
+                                                {payment?.data ? `${formatDate(payment.data)}` : 'No Data'}
+                                            </td>
                                         </tr>
                                     })
                                 }

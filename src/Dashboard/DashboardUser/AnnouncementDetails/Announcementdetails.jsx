@@ -14,9 +14,6 @@ function Announcementdetails(props) {
     })
 
 
-
-
-    // console.log(id)
     return (
         <div>
             <div className="relative p-4">

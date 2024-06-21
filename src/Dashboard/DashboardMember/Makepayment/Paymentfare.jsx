@@ -12,11 +12,8 @@ function Paymentfare() {
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        console.log(searchParams)
         const monthParam = searchParams.get('month') || '';
-        console.log(monthParam)
         const finalRentParam = parseFloat(searchParams.get('finalRent')) || 0;
-        console.log(finalRentParam)
 
         setMonth(monthParam);
         setFinalRent(finalRentParam);

@@ -5,28 +5,42 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAxiosCommon from "../../../Hooks/useAxiosCommon";
 import axios from "axios";
+import useAxiosSequre from "../../../Hook/useAxiosSequre";
 function Managecoupons() {
   const [open, setOpen] = React.useState(false);
-  const axiosCommon = useAxiosCommon();
-  const [couponStatu, setCouponStatu] = useState("");
+  const axiosSequre = useAxiosSequre();
+
+
+
+  // get coupon array
+  const { data: couponData = [], refetch } = useQuery({
+    queryKey: ['couponData'],
+    queryFn: async () => {
+      const { data } = await axiosSequre.get('/coupon');
+      return data;
+    }
+  });
+
 
   const { mutateAsync } = useMutation({
     mutationFn: async (coupon) => {
-      const { data } = await axiosCommon.post(`/coupon`, coupon);
+      const { data } = await axiosSequre.post(`/coupon`, coupon);
       return data;
     },
     onSuccess: (data) => {
       if (data?.insertedId) {
         setOpen(false);
+        refetch()
         toast.success("Successfully Sign Agrement.");
       }
     },
   });
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const couponCode = e.target.elements.couponCode.value;
-
     const discountPercentage = e.target.elements.discountPercentage.value;
     const couponDescription = e.target.elements.couponDescription.value.toUpperCase();
     const coupon = couponCode.split(" ").join("").toUpperCase();
@@ -43,21 +57,12 @@ function Managecoupons() {
       console.log(err.message);
     }
 
-    // console.log(infoCoupon);
   };
 
 
 
 
-  // get coupon array
-  const { data: couponData = [] } = useQuery({
-    queryKey: ['couponData'],
-    queryFn: async () => {
-      const { data } = await axiosCommon.get('/coupon');
-      return data;
-    }
-  });
-  // console.log()
+
 
 
   return (
@@ -92,7 +97,6 @@ function Managecoupons() {
                   className="mt-1 uppercase block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
                 />
-                <p className="text-red-500">{couponStatu}</p>
               </div>
               <div>
                 <label
@@ -166,7 +170,7 @@ function Managecoupons() {
                   <td className="px-6 py-4">
                     {couponItem?.discountPercentage} %
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 max-w-[300px]">
                     {couponItem?.couponDescription}
                   </td>
                 </tr>

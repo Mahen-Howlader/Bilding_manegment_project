@@ -49,7 +49,6 @@ function Apartment() {
   if (isLoading) return <Spinner></Spinner>
 
   async function handelDataAgrement(data) {
-    // console.log(data)
     const agrementData = {
       userName: user?.displayName,
       userEmail: user?.email,

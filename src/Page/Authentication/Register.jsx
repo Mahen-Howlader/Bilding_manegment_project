@@ -22,17 +22,14 @@ const Register = () => {
       setLoading(true);
       // 1. Upload image and get image URL
       const image_url = await imageUpload(image);
-      console.log(image_url);
       // 2. User Registration
       const result = await createUser(email, password);
-      console.log(result);
 
       // 3. Save username and photo in firebase
       await updateUserProfile(name, image_url);
       navigate('/');
       toast.success('Signup Successful');
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
     } finally {
       setLoading(false);

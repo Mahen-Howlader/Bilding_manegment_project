@@ -18,6 +18,7 @@ import Paymenthistory from "./Dashboard/DashboardMember/Paymenthistory/Paymenthi
 import Announcementdetails from "./Dashboard/DashboardUser/AnnouncementDetails/Announcementdetails";
 import Adminprofile from "./Dashboard/DashboardAdminComponent/Adminprofile/Adminprofile";
 import Loginprivedroute from "./Dashboard/Privateroute/Loginprivedroute";
+import Adminroute from "./Dashboard/Privateroute/Adminroute";
 
 const router = createBrowserRouter([
   {
@@ -56,19 +57,19 @@ const router = createBrowserRouter([
       },
       {
         path: "managemember",
-        element: <Loginprivedroute><Managemember></Managemember></Loginprivedroute> 
+        element: <Adminroute><Managemember></Managemember></Adminroute> 
       },
       {
         path: "makeannouncemen",
-        element: <Loginprivedroute><Announcemen></Announcemen></Loginprivedroute> 
+        element: <Adminroute><Announcemen></Announcemen></Adminroute> 
       },
       {
         path: "agreementrequests",
-        element: <Loginprivedroute><Agrementrequest></Agrementrequest></Loginprivedroute> 
+        element: <Adminroute><Agrementrequest></Agrementrequest></Adminroute> 
       },
       {
         path: "managecoupons",
-        element: <Loginprivedroute><Managecoupons></Managecoupons></Loginprivedroute> 
+        element: <Adminroute><Managecoupons></Managecoupons></Adminroute> 
       },
       {
         path: "announcements",
@@ -92,7 +93,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Adminprofile",
-        element: <Loginprivedroute><Adminprofile></Adminprofile></Loginprivedroute> 
+        element: <Adminroute><Adminprofile></Adminprofile></Adminroute> 
       }
     ]
   }

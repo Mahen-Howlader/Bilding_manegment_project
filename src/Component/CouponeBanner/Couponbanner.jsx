@@ -33,7 +33,6 @@ function Couponbanner() {
   })
 
   if(isLoading) return <Spinner></Spinner>
-  console.log(data)
 
 
   return (

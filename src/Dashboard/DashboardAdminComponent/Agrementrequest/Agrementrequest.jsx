@@ -8,7 +8,6 @@ import useRole from "../../../Hooks/useRole";
 function Agrementrequest() {
   const axiosCommon = useAxiosCommon();
   const [role, loading] = useRole();
-  console.log(role);
   const { data: agreementAllData = [], isLoading,refetch } = useQuery({
     queryKey: ["agreement"],
     queryFn: async () => {
@@ -17,7 +16,6 @@ function Agrementrequest() {
     },
   });
 
-  console.log(agreementAllData);
 
   async function rejectableFun(room) {
     const role = { role: "user" };
@@ -41,11 +39,10 @@ function Agrementrequest() {
             `/agrementdelete/${room?.userEmail}`
           );
 
-          // console.log(deleteData);
-
-          // console.log(datarole);
+       
           if (datarole?.matchedCount || deleteData?.deletedCount) {
             toast.success("Reject successful !");
+            refetch();
           }
         } catch (error) {
           console.error("Error updating status:", error);
@@ -64,7 +61,7 @@ function Agrementrequest() {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, accepted it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {

@@ -6,7 +6,6 @@ import Spinner from "../Spinner";
 
 function Statistic() {
   const [role, isLoading] = useRole();
-  console.log(role)
   if (isLoading) return <Spinner></Spinner>;
 
   return (

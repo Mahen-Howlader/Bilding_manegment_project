@@ -5,9 +5,21 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import Spinner from "../../../Component/Spinner";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import useAxiosSequre from "../../../Hook/useAxiosSequre";
+import toast from "react-hot-toast";
 
 function Announcemen() {
+  const axiosSequre = useAxiosSequre()
   const axiosCommon = useAxiosCommon();
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get("/announcement")
+      return data;
+    }
+  })
+
   function handelAnnouncemen(e) {
     e.preventDefault();
     const dataTime = moment().format('MMMM Do YYYY, h:mm:ss a')
@@ -23,15 +35,14 @@ function Announcemen() {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, submit it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const { data } = await axiosCommon.post("/announcemen", {
+        const { data } = await axiosSequre.post("/announcemen", {
           title,
           description,
           dataTime
         });
-        console.log(data);
         if (data?.insertedId) {
           Swal.fire({
             title: "Success!",
@@ -39,6 +50,7 @@ function Announcemen() {
             icon: "success",
           });
           e.target.reset();
+          refetch()
         } else {
           Swal.fire({
             icon: "error",
@@ -51,26 +63,31 @@ function Announcemen() {
     });
   }
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["announcements"],
-    queryFn: async () => {
-      const { data } = await axiosCommon.get("/announcement")
-      return data;
-    }
-  })
-  console.log(data)
 
   if (isLoading) return <Spinner></Spinner>
 
-  function  deleteAnnouncement (id) {
-    const {mutate} = useMutation({
-      mutationFn : async () => {
-        const {data} = await axiosCommon.delete(`/announcement/:${id}`)
-        return data;
+
+
+
+  const handleDeleteAnnouncement = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { data } = await axiosSequre.delete(`/announcement/${id}`);
+        if (data?.deletedCount) {
+          toast.success("Delete successful")
+          refetch()
+        }
       }
-      
-    }) 
-  }
+    });
+  };
 
 
 
@@ -120,7 +137,7 @@ function Announcemen() {
 
 
             <div className="flex justify-end ">
-              <MdDelete className="text-red-500 rounded-full " onClick={() => deleteAnnouncement(Annouc?._id)} size={27} />
+              <MdDelete className="text-red-500 rounded-full " onClick={() => handleDeleteAnnouncement(Annouc?._id)} size={27} />
             </div>
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{Annouc?.title}</h5>

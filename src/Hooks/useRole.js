@@ -11,7 +11,6 @@ function useRole() {
         enabled: !loading && !!user?.email,
         queryFn: async () => {
             const { data } = await axiosCommon.get(`/user/${user?.email}`);
-            // console.log(data?.role)
             return data?.role
         }
     })

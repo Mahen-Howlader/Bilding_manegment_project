@@ -8,7 +8,6 @@ function Apartmentinfo(props) {
     queryKey: ["apartments"],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/users/${user?.email}`);
-    //   console.log(data?.role);
       return data;
     },
   });
