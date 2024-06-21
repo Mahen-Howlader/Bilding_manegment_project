@@ -57,8 +57,8 @@ function Couponbanner() {
             return <SwiperSlide key={index}>
 
               <div className="">
-                <div className="bg-gradient-to-br from-purple-600 to-indigo-600 text-white text-center py-10 md:px-20 rounded-lg shadow-md ">
-                  <h3 className="text-2xl font-semibold mb-4">
+                <div className="h-60 md:h-80  bg-gradient-to-br overflow-y-auto from-purple-600 to-indigo-600 text-white text-center py-10 md:px-20 rounded-lg shadow-md ">
+                  <h3 className="text-sm px-2 md:px-0 md:text-xl lg:text-2xl lg:font-semibold mb-4">
                     {cou?.discountPercentage}% {cou?.couponDescription}
                   </h3>
                   <div className="flex items-center justify-center space-x-2 mb-6">

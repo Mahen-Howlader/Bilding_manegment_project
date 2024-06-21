@@ -1,5 +1,5 @@
 import { IoMdLogIn } from "react-icons/io";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { IoIosLogOut } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
@@ -12,6 +12,7 @@ function Nav() {
   const [role, isLoading] = useRole()
   function handelLogout() {
     logOut();
+    window.location.reload();
   }
   const setActive = ({ isActive }) =>
     isActive
@@ -108,7 +109,7 @@ function Nav() {
                     }
                   </li>
                   <li>
-                    <div onClick={handelLogout} className="">
+                    <div onClick={() => handelLogout()} className="">
                       <IoIosLogOut size={23} />
                       LOGOUT
                     </div>
