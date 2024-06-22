@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import app from "../Firebase/Firebase";
 import useAxiosCommon from "../Hooks/useAxiosCommon";
+import { SiOneplus } from "react-icons/si";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -63,6 +64,9 @@ const AuthProvider = ({ children }) => {
       status: "Verified",
     };
 
+    
+    console.log(currentUser)
+
     const { data: userData } = await axios.post(
       `${import.meta.env.VITE_API_URL}/user`,
       currentUser
@@ -74,9 +78,12 @@ const AuthProvider = ({ children }) => {
 
   // onAuthStateChange
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
+
       if (currentUser) {
-        saveUser(currentUser);
+        if(currentUser?.displayName){
+          await  saveUser(currentUser);
+        }
         setLoading(false);
         setUser(currentUser)
 
