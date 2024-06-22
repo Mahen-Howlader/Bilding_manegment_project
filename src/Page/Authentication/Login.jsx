@@ -3,15 +3,27 @@ import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
+import Spinner from "../../Component/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state || "/";
+
+
   // console.log(location?.state)
-  const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
+  const { user,signInWithGoogle, signIn, loading, setLoading, resetPassword } =
     useAuth();
 
+
+
+  if (loading) return <Spinner></Spinner>
+
+  if (user) {
+    navigate("/")
+  }
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -57,6 +69,11 @@ const Login = () => {
       toast.error(err.message);
     }
   };
+
+
+
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen">

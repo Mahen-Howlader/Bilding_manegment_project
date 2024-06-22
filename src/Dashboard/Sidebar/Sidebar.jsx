@@ -4,7 +4,7 @@ import useRole from "../../Hooks/useRole";
 import MenuItem from "../Menu/MenuItem";
 import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ToggleBtn from "../../Component/Button/ToggleBtn";
 import { BsGraphUp } from "react-icons/bs";
 import Normalusersidebar from "../Menu/Normalusersidebar";
@@ -21,12 +21,19 @@ const Sidebar = () => {
   const [toggle, setToggle] = useState(true);
   const [role, isLoading] = useRole();
   console.log(role, isLoading);
-  const [isAdmin,adminLoading] = useAdmin()
-  console.log(isAdmin)
+  const [isAdmin, adminLoading] = useAdmin()
+  // console.log(isAdmin)
+
+  const navigate = useNavigate()
 
   const handleToggle = () => {
     setActive(!isActive);
   };
+
+  function handelLogout() {
+    logOut()
+    window.location.reload();
+  }
 
   return (
     <>
@@ -110,7 +117,7 @@ const Sidebar = () => {
         <div>
           <hr />
           <button
-            onClick={logOut}
+            onClick={handelLogout}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
           >
             <GrLogout className="w-5 h-5" />

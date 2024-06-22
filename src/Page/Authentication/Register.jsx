@@ -5,10 +5,18 @@ import toast from "react-hot-toast";
 import { imageUpload } from "../../Api/ImageUpload";
 import { useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
+import Spinner from "../../Component/Spinner";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { createUser, signInWithGoogle, updateUserProfile, loading, setLoading } = useAuth();
+  const { createUser, user, signInWithGoogle, updateUserProfile, loading, setLoading } = useAuth();
+
+
+  if (loading) return <Spinner></Spinner>
+
+  if (user) {
+    navigate("/")
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,7 +134,7 @@ const Register = () => {
               type="submit"
               className="bg-blue-700 w-full rounded-md py-3 text-white"
             >
-             {loading ? (
+              {loading ? (
                 <TbFidgetSpinner className='animate-spin m-auto' />
               ) : (
                 'Continue'

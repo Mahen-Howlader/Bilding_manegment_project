@@ -19,11 +19,13 @@ import Announcementdetails from "./Dashboard/DashboardUser/AnnouncementDetails/A
 import Adminprofile from "./Dashboard/DashboardAdminComponent/Adminprofile/Adminprofile";
 import Loginprivedroute from "./Dashboard/Privateroute/Loginprivedroute";
 import Adminroute from "./Dashboard/Privateroute/Adminroute";
+import Error from "./Component/Error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout></Layout>,
+    errorElement : <Error></Error>,
     children: [
       {
         path: "/",
@@ -35,6 +37,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/login",
     element: <Login></Login>,
@@ -46,6 +49,7 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Loginprivedroute><DashboardLayout></DashboardLayout></Loginprivedroute>,
+    errorElement : <Error></Error>,
     children: [
       {
         index: true,

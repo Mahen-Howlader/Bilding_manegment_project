@@ -29,11 +29,11 @@ function Nav() {
         <div className="navbar">
           <div className="navbar-start  flex gap-x-2 items-center">
             <img
-              className="w-14 h-14"
+              className="w-10 h-10 md:w-14 md:h-14"
               src="https://i.ibb.co/PhfZtKv/logo-hotel-removebg-preview.png"
               alt="logo"
             />
-            <a className=" font-bold text-2xl uppercase mt-2 fondamento-regular">Hotel Emma</a>
+            <a className=" md:font-bold inline-flex md:text-2xl uppercase mt-2 fondamento-regular">Hotel Emma</a>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="flex font-medium gap-x-5 px-1 uppercase">
@@ -88,7 +88,24 @@ function Nav() {
                   className="menu gap-y-3 menu-sm dropdown-content text-black mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52"
                 >
                   <li className="text-center">{user && user?.displayName}</li>
+
+                  <li className="block lg:hidden">
+                    <NavLink to={"/"} className={setActive}>
+                      Home
+                    </NavLink>
+                  </li>
+                  <li className="block lg:hidden">
+                    <NavLink to={"/apartment"} className={setActive}>
+                      Apartment
+                    </NavLink>
+                  </li>
+
+
+
+
                   <li>
+
+
                     {
                       role === "admin" && <Link to="/dashboard/adminprofile" className="">
                         <MdDashboard size={23} />

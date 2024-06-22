@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 
 export const axiosSequre = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: import.meta.env.VITE_API_URL,
 })
 
 function useAxiosSequre() {
